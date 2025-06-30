@@ -34,9 +34,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       ## 名前を保存するカラム
       t.string :name       
-      t.text :introduction      # 自己紹介文
+      t.text :introduction      # 作成後に追加したかったら、新しくマイグレFile作成
 
       t.timestamps null: false
+
+      add_column :users, :introduction, :text
+
     end
 
     add_index :users, :email,                unique: true

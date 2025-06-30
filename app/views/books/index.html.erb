@@ -1,2 +1,41 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<div class="profile-container">
+  <h3 class="profile-name"><%= @user.name %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  <% if @user.id == current_user.id %>
+  <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
+</div>
+
+# <% @books.each do |book| %>
+#     <div>
+#       <%= image_tag book.get_image %>
+#       <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+#       <p>ショップ名：<%= book.title %></p>
+#       <p>説明：<%= book.body %></p>
+#       <p>ユーザーネーム：<%= book.user.name %></p>
+#     </div>
+#   <% end %>
+
+
+  
+<!-- 投稿機能を実装 -->
+<%= form_with model: @book, local: true do |f| %>
+  <h4>New Book</h4>
+  <p>Title</p>
+  <%= f.text_field :title %>
+  <p>Opinion</p>
+  <%= f.text_area :body %>
+  
+  <div class ="action">
+      <%= f.submit 'Create Book' %>
+  </div>
+<% end %>
+
+<h1>投稿一覧</h1>
+
+<% @books.each do |book| %>
+
+  <p>タイトル</p>
+  <span><%= book.title %></span>
+  
+<% end %>
