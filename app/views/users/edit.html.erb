@@ -1,2 +1,16 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+
+<!-- 投稿機能を実装 -->
+<%= form_with model: @user do |f| %>
+  <h1>User info</h1>
+  <p>Name</p>
+  <%= f.text_field :namet %>
+
+  <P label for="inputImage">ProfileImage</label></P>
+  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>  
+
+  <p>Introduction</p>
+  <%= f.text_area :introduction %>
+  <div class "action">
+      <%= f.submit 'Update User' %>
+  </div>
+<% end %>

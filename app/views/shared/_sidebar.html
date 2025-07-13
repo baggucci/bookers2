@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg-4" style="background-color: orange;">
+        <div class="profile-container">
+          <%= image_tag user.get_profile_image(100, 100) %>
+          <h3 class="profile-name">
+            <p>"name" <%= user.name %></p>
+          </h3>
+          <h3 class="profile-introduction">
+            <p>"introduction" <%= user.introduction %></p>
+          </h3>
+  
+          <% if user.id == current_user.id %>
+            <p><%= link_to "プロフィール編集", edit_user_path(user) %></p>
+          <% end %>
+        </div>
+  
+        <%= form_with model: book, url: books_path, local: true do |f| %>
+          <h4>New Book</h4>
+          <p>Title</p>
+          <%= f.text_field :title %>
+          <p>Opinion</p>
+          <%= f.text_area :body %>
+          <div class="action">
+            <%= f.submit 'Create Book' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  

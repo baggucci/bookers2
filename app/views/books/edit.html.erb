@@ -1,2 +1,17 @@
 <h1>Books#edit</h1>
 <p>Find me in app/views/books/edit.html.erb</p>
+
+<!-- 投稿機能を実装 -->
+<%= form_with model: @book do |f| %>
+  <h4>Editing Book</h4>
+  <p>Title</p>
+  <%= f.text_field :title %>
+  <p>Opinion</p>
+  <%= f.text_area :body %>
+  <div class "action">
+      <%= f.submit 'Update Book' %>
+  </div>
+<% end %>
+
+
+

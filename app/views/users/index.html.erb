@@ -1,0 +1,12 @@
+<h1>Users#index</h1>
+
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<% @users.each do |user| %>
+    <div>
+      <p>ショップ名：<%= user.name %></p>
+      <p>説明：<%= user.introduction %></p>
+    </div>
+  <% end %>

@@ -1,9 +1,14 @@
-<h1>Users#show</h1>
-<p>User info</p>
+<div>
+<%= flash[:notice] %>
+</div>
 
-
+<h1>User info</h1>
 <!-- ユーザーの詳細 -->
 
+<div class="container">  <!-- この行を追加 -->
+  <div class="row">      <!-- この行を追加 -->
+
+<div class="col-lg-4" style="background-color: orange;">
 <div class="profile-container">
   <%= image_tag @user.get_profile_image(100,100) %>
   <h3 class="profile-name">
@@ -32,29 +37,22 @@
 -->
 
 <!-- 投稿機能を実装 -->
-<%= form_with model: @book do |f| %>
+<%= form_with model: @book, url: books_path, local: true do |f| %>
   <h4>New Book</h4>
   <p>Title</p>
-  <%= f.text_field :title %>
+   <%= f.text_field :title %>
   <p>Opinion</p>
-  <%= f.text_area :body %>
-  <div class "action">
+   <%= f.text_area :body %>
+  <div class="action">
       <%= f.submit 'Create Book' %>
   </div>
 <% end %>
+</div>
+
+<div class="col-lg-8">  
+<H2>Books</H2>
 
 <%= render 'books/list', books: @books %>
-
-
-<% @books.each do |book| %>
-<div>
-  <%= link_to book_path(book.id) do %>
-    <%= image_tag book.get_image %>
-  <% end %>
-  <p>投稿ユーザー画像<%= image_tag book.user.get_profile_image(100,100) %></p>
-  <p>ショップ名：<%= book.shop_name %></p>
-  <p>説明：<%= book.caption %></p>
-  <p>ユーザーネーム：<%= book.user.name %></p>
-  <p><%= link_to "#{book.post_comments.count} コメント", book_path(book.id) %></p>
 </div>
-<% end %>
+</div>
+</div>
