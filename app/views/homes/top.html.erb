@@ -1,2 +1,17 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div>
+  <%= flash[:notice] %>
+</div>
+
+<main>
+    <p id="notice"></p>
+    <div class="container">
+        <div class="row">
+            <h1 class="px-3 mx-auto">Welcome to <i class="fas fa-book"></i><strong>Bookers</strong>!</h1>
+        </div><p> In <i class="fa-solid fa-book"></i><strong>Bookers</strong>, </P>
+        <p>you can share and exchange  your opinions , inpressions , and emotions</p>
+        <p> about various books!</p>
+        <p><%= link_to "Log in", new_user_session_path, class: "btn btn-secondary" %></p>
+        <p><%= link_to "Sign up", new_user_registration_path, class: "btn btn-secondary" %></p>
+
+    </div>
+</main>

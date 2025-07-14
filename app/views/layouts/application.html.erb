@@ -33,7 +33,9 @@
               <%= link_to 'Home', user_path(current_user.id), class: 'nav-link text-dark' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Users', books_path, class: 'nav-link text-dark' %>
+              <%= link_to 'Users', users_path, class: 'nav-link text-dark' %>
+            <li class="nav-item">
+              <%= link_to 'Books', books_path, class: 'nav-link text-dark' %>
             </li>
             <li class="nav-item">
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>

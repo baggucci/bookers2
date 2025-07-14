@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       redirect_to user_path(user.id) 
     else
       flash.now[:alert] = "投稿に失敗しました。" #キーをalertに変更
-      render :new
+      render :index
     end
   end
 

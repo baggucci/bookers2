@@ -1,47 +1,78 @@
+<div><%= flash[:notice] %></div>
 
 <!-- ユーザーの詳細 -->
 
 <div class="container">  <!-- この行を追加 -->
   <div class="row">      <!-- この行を追加 -->
+    <div class="col-lg-4" style="background-color: orange;">
+      <div class="profile-container">
+        <%= image_tag @user.get_profile_image(100,100) %>
+        <h3 class="profile-name">
+          <p>"name"
+            <%= @user.name %>
+          </P>
+        </h3>
+        <h3 class="profile-introduction">
+          <p>"introduction"
+            <%= @user.introduction %>
+          </P>
+        </h3>
 
-<div class="col-lg-4" style="background-color: orange;">
-<div class="profile-container">
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <h3 class="profile-name">
-    <p>"name"
-      <%= @user.name %>
-    </P>
-  </h3>
-  <h3 class="profile-introduction">
-    <p>"introduction"
-      <%= @user.introduction %>
-    </P>
-  </h3>
-
-  <% if @user.id == current_user.id %>
-  <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
-  <% end %>
-</div>
+        <% if @user.id == current_user.id %>
+        <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+        <% end %>
+      </div>
 
 
-<!-- 投稿機能を実装 -->
-<%= form_with model: @book do |f| %>
-  <h4>New Book</h4>
-  <p>Title</p>
-  <%= f.text_field :title %>
-  <p>Opinion</p>
-  <%= f.text_area :body %>
-  <div class "action">
-      <%= f.submit 'Create Book' %>
+      <!-- 投稿機能を実装 -->
+
+      <% if @book.errors.any? %>
+        <%= @book.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <%= form_with model: @book do |f| %>
+        <h4>New Book</h4>
+        <p>Title</p>
+        <%= f.text_field :title %>
+        <p>Opinion</p>
+        <%= f.text_area :body %>
+        <div class "action">
+            <%= f.submit 'Create Book' %>
+        </div>
+      <% end %>
+
+   </div>
+
+   <div class="col-lg-8">  <!-- この行を追加 -->
+    <h2>Book detail</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>
+            <P><%= image_tag @book.user.get_profile_image(100,100) %></p>
+            <P><%= @user.name %></p>
+            </td>
+            <td><%= link_to @book.title, book_path(@book) %></td>
+            <td><%= @book.body %></td>
+            <td><%= link_to 'Edit', edit_book_path(@book) %></td>
+            <td><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削しますか？" %> </td>         
+          </tr>
+      </tbody>
+    </table>
   </div>
-<% end %>
-
-<h2>Book Details</h2>
-
-<p><strong>Title:</strong> <%= @book.title %></p>
-<p><strong>Opinion:</strong> <%= @book.body %></p>
-
-<%= link_to 'Back to List', books_path %>
-<%= link_to 'Edit', edit_book_path(@book) %>
-<%= link_to "削除", book_path(@book.id), method: :delete, "data-confirm" => "本当に削しますか？" %>
-
+  </div>
+</div>
