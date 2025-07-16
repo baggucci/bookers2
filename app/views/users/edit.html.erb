@@ -1,9 +1,21 @@
 
 <!-- 投稿機能を実装 -->
 <%= form_with model: @user do |f| %>
+
+    <% if @user.errors.any? %>
+    <div class="errors">
+      <h2><%=  pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
   <h1>User info</h1>
   <p>Name</p>
-  <%= f.text_field :namet %>
+  <%= f.text_field :name %>
 
   <P label for="inputImage">ProfileImage</label></P>
   <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>  

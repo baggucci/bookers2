@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  before_action :ensure_book_belongs_to_current_user, only: [:edit, :update]
+
   def new
     @book = Book.new
   end
@@ -11,7 +13,7 @@ class BooksController < ApplicationController
       flash[:notice] = "You have created book successfully."
       redirect_to #book_path(@book)
     else
-      flash.now[:alert] = "投稿に失敗しました。" #キーをalertに変更
+      @books = Book.all
       render :index
     end
   end
@@ -26,25 +28,25 @@ class BooksController < ApplicationController
 
   def show
 #    @books = Book.all
-    @book = Book.find(params[:id])
-#    @book = Book.new
+    @show_book = Book.find(params[:id])
+    @book = Book.new
     @user = current_user
 
   end
 
   def edit
-    @book = Book.find(params[:id])
+#    @book = Book.new
+    @book = Book.find(params[:id]) #Book.newではなく、編集対象を取得
   end
 
   def update
-    book = Book.find(params[:id])
-    if
-      book.update(book_params) #book_params
+    @book = Book.find(params[:id])
+    if @book.update(book_params) #book_params
       flash[:notice] = "You have updated book successfully."
-      redirect_to book_path(book.id) 
+      redirect_to book_path(@book.id) 
     else
-      flash.now[:alert] = "投稿に失敗しました。" #キーをalertに変更
-      render :index
+#      @book = Book.find(params[:id])
+      render :edit
     end
   end
 
@@ -56,6 +58,13 @@ class BooksController < ApplicationController
 
     # 投稿データのストロングパラメータ
     private
+
+    def ensure_book_belongs_to_current_user
+      book = Book.find(params[:id])
+      unless book.user == current_user
+        redirect_to books_path, alert: "You are not authorized to access this book."
+      end
+    end
 
     def book_params
       params.require(:book).permit(:title, :body)

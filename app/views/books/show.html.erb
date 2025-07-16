@@ -4,49 +4,12 @@
 
 <div class="container">  <!-- この行を追加 -->
   <div class="row">      <!-- この行を追加 -->
-    <div class="col-lg-4" style="background-color: orange;">
+    <div class="col-lg-4">
       <div class="profile-container">
-        <%= image_tag @user.get_profile_image(100,100) %>
-        <h3 class="profile-name">
-          <p>"name"
-            <%= @user.name %>
-          </P>
-        </h3>
-        <h3 class="profile-introduction">
-          <p>"introduction"
-            <%= @user.introduction %>
-          </P>
-        </h3>
-
-        <% if @user.id == current_user.id %>
-        <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
-        <% end %>
+        <%= render "users/profile", user: @user %>
+        <%= render "books/form", book: @book %>
       </div>
-
-
-      <!-- 投稿機能を実装 -->
-
-      <% if @book.errors.any? %>
-        <%= @book.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @book.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <%= form_with model: @book do |f| %>
-        <h4>New Book</h4>
-        <p>Title</p>
-        <%= f.text_field :title %>
-        <p>Opinion</p>
-        <%= f.text_area :body %>
-        <div class "action">
-            <%= f.submit 'Create Book' %>
-        </div>
-      <% end %>
-
-   </div>
+    </div>
 
    <div class="col-lg-8">  <!-- この行を追加 -->
     <h2>Book detail</h2>
@@ -63,13 +26,15 @@
       <tbody>
           <tr>
             <td>
-            <P><%= image_tag @book.user.get_profile_image(100,100) %></p>
-            <P><%= @user.name %></p>
+            <P><%= image_tag @show_book.user.get_profile_image(100,100) %></p>
+            <P><%= @show_book.user.name %></p>
             </td>
-            <td><%= link_to @book.title, book_path(@book) %></td>
-            <td><%= @book.body %></td>
-            <td><%= link_to 'Edit', edit_book_path(@book) %></td>
-            <td><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削しますか？" %> </td>         
+            <td><%= link_to @show_book.title, book_path(@show_book) %></td>
+            <td><%= @show_book.body %></td>
+            <% if @show_book.user == current_user %>
+            <td><%= link_to 'Edit', edit_book_path(@show_book) %></td>
+            <td><%= link_to "Destroy", book_path(@show_book.id), method: :delete, "data-confirm" => "本当に削しますか？" %> </td>
+            <%end%>         
           </tr>
       </tbody>
     </table>

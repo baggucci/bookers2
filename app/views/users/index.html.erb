@@ -4,9 +4,36 @@
   <%= flash[:notice] %>
 </div>
 
-<% @users.each do |user| %>
-    <div>
-      <p>ショップ名：<%= user.name %></p>
-      <p>説明：<%= user.introduction %></p>
+<div class="container">  <!-- この行を追加 -->
+  <div class="row">      <!-- この行を追加 -->
+
+    <div class="col-lg-4">
+      <div class="profile-container">
+        <%= render "profile", user: @user %>
+        <%= render "books/form", book: @book %>
+
+      </div>
     </div>
-  <% end %>
+      
+
+    <div class="col-lg-8">  
+      <H2>Books</H2>
+
+      <table class="table">
+      <thead>
+        <tr>
+          <th>image</th>
+          <th>name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <% @users.each do |user| %>
+          <tr>
+            <td><%= image_tag user.get_profile_image(100,100) %></td>
+            <td><%= user.name %></td>
+            <td><%= link_to "Show", user_path(user) %></td>          
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

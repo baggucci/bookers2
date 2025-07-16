@@ -1,36 +1,42 @@
 <%= flash[:notice] %>
+<% if @book.errors.any? %>
+  <h2><%=  pluralize(@book.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-4" style="background-color: orange;">
+    <div class="col-lg-4">
       <div class="profile-container">
-        <%= image_tag current_user.get_profile_image(100, 100) %>
-        <h3 class="profile-name">
-          <p>"name" <%= current_user.name %></p>
-        </h3>
-        <h3 class="profile-introduction">
-          <p>"introduction" <%= current_user.introduction %></p>
-        </h3>
-
-          <p><%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-secondary" %></p>
+        <%= render "users/profile", user: @user %>
+        <%= render "books/form", book: @book %>
       </div>
-
-      <%= form_with model: @book, url: books_path, local: true do |f| %>
-        <h4>New Book</h4>
-        <p>Title</p>
-        <%= f.text_field :title %>
-        <p>Opinion</p>
-        <%= f.text_area :body %>
-        <div class="action">
-          <%= f.submit 'Create Book' %>
-        </div>
-      <% end %>
     </div>
  
-
 <div class="col-lg-8">  <!-- この行を追加 -->
-
-<%= render 'books/list', books: @books %>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th></th>
+    <th>Title</th>
+    <th>Opinion</th>
+  </tr>
+</thead>
+<tbody>
+  <% @books.each do |book| %>
+    <tr>
+      <td><%= image_tag book.user.get_profile_image(100,100) %></td>
+      <td><%= link_to book.title, book_path(book) %></td>
+      <td><%= book.body %></td>
+      
+    </tr>
+  <% end %>
+</tbody>
+</table>
 
 </div>  
 </div>
