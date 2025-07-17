@@ -6,6 +6,8 @@
   <div class="row">      <!-- この行を追加 -->
     <div class="col-md-3">
       <div class="profile-container">
+        <h2>User info </h2>
+
         <%= render "users/profile", user: @user %>
         <%= render "books/form", book: @book %>
       </div>
@@ -13,16 +15,9 @@
 
    <div class="col-md-8 offset-md-1">  <!-- この行を追加 -->
     <h2>Book detail</h2>
-    <table class="table table-striped">
+    <table class="table table">
       <thead>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-
-        </tr>
-      </thead>
+  
       <tbody>
           <tr>
             <td> 

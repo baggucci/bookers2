@@ -1,12 +1,11 @@
 <div><%= flash[:notice] %></div>
 
-<h1>User info</h1>
-<!-- ユーザーの詳細 -->
-
 <div class="container">  <!-- この行を追加 -->
   <div class="row">      <!-- この行を追加 -->
 
     <div class="col-md-3">
+      <H2>User info</H2>
+
       <div class="profile-container">
         <%= render "profile", user: @user %>
         <%= render "books/form", book: @book %>
@@ -18,7 +17,30 @@
     <div class="col-md-8 offset-md-1">  
       <H2>Books</H2>
 
-    <%= render 'books/list', books: @books %>
-
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td>
+              <%= link_to user_path(book.user) do %>
+                <%= image_tag book.user.get_profile_image(100,100) %>  
+              <% end %>
+              </td>
+      
+              <td><%= link_to book.title, book_path(book) %></td>
+              <td><%= book.body %></td>
+              
+            </tr>
+          <% end %>
+        </tbody>
+     </table>
+    </div>
   </div>
 </div>
