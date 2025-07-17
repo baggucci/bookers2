@@ -7,7 +7,7 @@
 <div class="container">  <!-- この行を追加 -->
   <div class="row">      <!-- この行を追加 -->
 
-    <div class="col-lg-4">
+    <div class="col-md-3">
       <div class="profile-container">
         <%= render "profile", user: @user %>
         <%= render "books/form", book: @book %>
@@ -16,7 +16,7 @@
     </div>
       
 
-    <div class="col-lg-8">  
+    <div class="col-md-8 offset-md-1">  
       <H2>Books</H2>
 
       <table class="table">

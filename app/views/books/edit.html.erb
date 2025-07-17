@@ -17,13 +17,18 @@
 
   <h4>Editing Book</h4>
   <p>Title</p>
-  <%= f.text_field :title %>
+    <%= f.text_field :title %>
   <p>Opinion</p>
-  <%= f.text_area :body %>
+    <%= f.text_area :body %>
   <div class "action">
       <%= f.submit 'Update Book' %>
   </div>
-<% end %>
+
+  <%= link_to "Show", book_path() %>
+  <a>|</a>
+  <%= link_to "Back", books_path() %>
+  
+  <% end %>
 
 
 

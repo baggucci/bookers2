@@ -4,14 +4,14 @@
 
 <div class="container">  <!-- この行を追加 -->
   <div class="row">      <!-- この行を追加 -->
-    <div class="col-lg-4">
+    <div class="col-md-3">
       <div class="profile-container">
         <%= render "users/profile", user: @user %>
         <%= render "books/form", book: @book %>
       </div>
     </div>
 
-   <div class="col-lg-8">  <!-- この行を追加 -->
+   <div class="col-md-8 offset-md-1">  <!-- この行を追加 -->
     <h2>Book detail</h2>
     <table class="table table-striped">
       <thead>
@@ -25,9 +25,17 @@
       </thead>
       <tbody>
           <tr>
-            <td>
-            <P><%= image_tag @show_book.user.get_profile_image(100,100) %></p>
-            <P><%= @show_book.user.name %></p>
+            <td> 
+            <p><%= link_to user_path(@show_book.user) do %>
+               <%= image_tag @show_book.user.get_profile_image(100,100) %>  
+             <% end %></p>
+
+            <p><%= link_to user_path(@show_book.user) do %>
+               <%= @show_book.user.name %>
+            <% end %></p>
+
+           </td>
+     
             </td>
             <td><%= link_to @show_book.title, book_path(@show_book) %></td>
             <td><%= @show_book.body %></td>
